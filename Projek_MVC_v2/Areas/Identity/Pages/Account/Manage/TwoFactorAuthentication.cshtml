@@ -1,0 +1,57 @@
+﻿@page
+@model TwoFactorAuthenticationModel
+@{
+    ViewData["Title"] = "Weryfikacja dwuetapowa (2FA)";
+    ViewData["ActivePage"] = ManageNavPages.TwoFactorAuthentication;
+}
+
+<partial name="_StatusMessage" for="StatusMessage" />
+<h4>@ViewData["Title"]</h4>
+@if (Model.Is2faEnabled)
+{
+    if (Model.RecoveryCodesLeft == 0)
+    {
+        <div class="alert alert-danger">
+            <strong>Nie masz już kodów odzyskiwania.</strong>
+            <p>Musisz <a asp-page="./GenerateRecoveryCodes">wygenerować nowy zestaw kodów odzyskiwania</a> przed zalogowaniem się przy użyciu kodu odzyskiwania.</p>
+        </div>
+    }
+    else if (Model.RecoveryCodesLeft == 1)
+    {
+        <div class="alert alert-danger">
+            <strong>Pozostał 1 kod odzyskiwania.</strong>
+            <p>Możesz <a asp-page="./GenerateRecoveryCodes">wygenerować nowy zestaw kodów odzyskiwania</a>.</p>
+        </div>
+    }
+    else if (Model.RecoveryCodesLeft <= 3)
+    {
+        <div class="alert alert-warning">
+            <strong>Pozostało @Model.RecoveryCodesLeft kodów odzyskiwania.</strong>
+            <p>Dobrą praktyką byłoby <a asp-page="./GenerateRecoveryCodes">wygenerowanie nowego zestawu kodów</a>.</p>
+        </div>
+    }
+
+    if (Model.IsMachineRemembered)
+    {
+        <form method="post" style="display: inline-block">
+            <button type="submit" class="btn btn-primary">Zapomnij o tej przeglądarce</button>
+        </form>
+    }
+    <a asp-page="./Disable2fa" class="btn btn-primary">Wyłącz 2FA</a>
+    <a asp-page="./GenerateRecoveryCodes" class="btn btn-primary">Zresetuj kody odzyskiwania</a>
+}
+
+<h5>Authenticator app</h5>
+@if (!Model.HasAuthenticator)
+{
+    <a id="enable-authenticator" asp-page="./EnableAuthenticator" class="btn btn-primary">Dodaj aplikację uwierzytelniającą</a>
+}
+else
+{
+    <a id="enable-authenticator" asp-page="./EnableAuthenticator" class="btn btn-primary">Skonfiguruj aplikację uwierzytelniającą</a>
+    <a id="reset-authenticator" asp-page="./ResetAuthenticator" class="btn btn-primary">Zresetuj aplikację uwierzytelniającą</a>
+}
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
