@@ -80,8 +80,19 @@ namespace Projek_MVC_v2.Areas.Identity.Pages.Account
                     Email = Input.Email 
                 };
                 var result = await _userManager.CreateAsync(user, Input.Password);
+                
                 if (result.Succeeded)
                 {
+                    var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+
+                    var confirmationLink = Url.Action("ConfirmEmail", "Register", 
+                        new { userId = user.Id, token = token}, Request.Scheme);
+
+                    /*if (_signInManager.IsSignedIn(User) && User.IsInRole("Admin"))//tutaj zrobic logowanie admina
+                    {
+                        return RedirectToAction("");
+                    }*/
+
                     _logger.LogInformation("Użytkownik utworzył nowe konto z hasłem.");
 
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
