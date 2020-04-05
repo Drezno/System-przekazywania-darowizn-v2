@@ -23,8 +23,14 @@
     <Folder Include="Models\" />
     <Folder Include="Pages\" />
     <Folder Include="wwwroot\css\" />
-    <Folder Include="wwwroot\images\" />
     <Folder Include="wwwroot\js\" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <None Include="wwwroot\images\kat-yukawa-K0E6E0a0R3A-unsplash.jpg" />
+    <None Include="wwwroot\images\perry-grone-lbLgFFlADrY-unsplash.jpg" />
+    <None Include="wwwroot\images\sandy-millar-S5pFhDxUXyw-unsplash.jpg" />
   </ItemGroup>
 
 </Project>
