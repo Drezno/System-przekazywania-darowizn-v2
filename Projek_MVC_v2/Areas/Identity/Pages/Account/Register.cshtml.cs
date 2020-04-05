@@ -60,6 +60,11 @@ namespace Projek_MVC_v2.Areas.Identity.Pages.Account
             [Display(Name = "Potwierdź hasło")]
             [Compare("Password", ErrorMessage = "Te hasła nie pasują do siebie. Spróbuj ponownie.")]
             public string ConfirmPassword { get; set; }
+
+            [DataType(DataType.PhoneNumber)]
+            [Display(Name ="Podaj numer telefonu")]
+            public string PhoneNumber { get; set; }
+
         }
 
         public async Task OnGetAsync(string returnUrl = null)
