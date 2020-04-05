@@ -33,6 +33,12 @@ namespace Projek_MVC_v2.Controllers
             return View();
         }
 
+        [HttpGet]
+        public IActionResult DonorForm()
+        {
+            return View();
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
