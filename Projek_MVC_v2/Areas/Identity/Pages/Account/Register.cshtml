@@ -12,6 +12,21 @@
             <h4>Stwórz nowe konto.</h4>
             <hr />
             <div asp-validation-summary="All" class="text-danger"></div>
+
+
+            <div class="form-group">
+                <label asp-for="Input.Email">Imię</label>
+                <input asp-for="Input.Email" class="form-control" />
+                <span asp-validation-for="Input.Email" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Input.Email">Nazwisko</label>
+                <input asp-for="Input.Email" class="form-control" />
+                <span asp-validation-for="Input.Email" class="text-danger"></span>
+            </div>
+
+
             <div class="form-group">
                 <label asp-for="Input.Email">Email*</label>
                 <input asp-for="Input.Email" class="form-control" />
