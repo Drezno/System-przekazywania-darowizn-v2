@@ -1,8 +1,9 @@
 ﻿@page
-@model RegisterModel
+@model Projek_MVC_v2.Areas.Identity.Pages.Account.RegisterOrgModel
 @{
-    ViewData["Title"] = "Rejestracja użytkownika";
+    ViewData["Title"] = "Rejestracja organizacji pozarządowej";
 }
+
 
 <h1>@ViewData["Title"]</h1>
 
@@ -15,15 +16,15 @@
 
 
             <div class="form-group">
-                <label asp-for="Input.Imie">Imię*</label>
-                <input asp-for="Input.Imie" class="form-control" />
-                <span asp-validation-for="Input.Imie" class="text-danger"></span>
+                <label asp-for="Input.Firma">Nazwa firmy*</label>
+                <input asp-for="Input.Firma" class="form-control" />
+                <span asp-validation-for="Input.Firma" class="text-danger"></span>
             </div>
 
             <div class="form-group">
-                <label asp-for="Input.Nazwisko">Nazwisko*</label>
-                <input asp-for="Input.Nazwisko" class="form-control" />
-                <span asp-validation-for="Input.Nazwisko" class="text-danger"></span>
+                <label asp-for="Input.Nip">NIP*</label>
+                <input asp-for="Input.Nip" class="form-control" />
+                <span asp-validation-for="Input.Nip" class="text-danger"></span>
             </div>
 
 

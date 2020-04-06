@@ -1,31 +1,35 @@
-Ôªøusing System;
+using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
+
+
+using System.ComponentModel.DataAnnotations;
+
 using System.Text;
 using System.Text.Encodings.Web;
-using System.Threading.Tasks;
+
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
+
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
 using Projek_MVC_v2.Models;
 
 namespace Projek_MVC_v2.Areas.Identity.Pages.Account
 {
-    [AllowAnonymous]
-    public class RegisterModel : PageModel
+    public class RegisterOrgModel : PageModel
     {
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
 
-        public RegisterModel(
+        public RegisterOrgModel(
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
             ILogger<RegisterModel> logger,
@@ -48,14 +52,14 @@ namespace Projek_MVC_v2.Areas.Identity.Pages.Account
         {
 
             [Required]
-        
-            [Display(Name = "Imie")]
-            public string Imie { get; set; }
+
+            [Display(Name = "Firma")]
+            public string Firma { get; set; }
 
             [Required]
 
-            [Display(Name = "Nazwisko")]
-            public string Nazwisko { get; set; }
+            [Display(Name = "NIP")]
+            public string Nip { get; set; }
 
             [Required]
             [EmailAddress]
@@ -63,18 +67,18 @@ namespace Projek_MVC_v2.Areas.Identity.Pages.Account
             public string Email { get; set; }
 
             [Required]
-            [StringLength(100, ErrorMessage = "Has≈Ço {0} musi posiadaƒá minimalnie {2} oraz maksymalnie {1} znak√≥w.", MinimumLength = 6)]
+            [StringLength(100, ErrorMessage = "Has≥o {0} musi posiadaÊ minimalnie {2} oraz maksymalnie {1} znakÛw.", MinimumLength = 6)]
             [DataType(DataType.Password)]
-            [Display(Name = "Has≈Ço")]
+            [Display(Name = "Has≥o")]
             public string Password { get; set; }
 
             [DataType(DataType.Password)]
-            [Display(Name = "Potwierd≈∫ has≈Ço")]
-            [Compare("Password", ErrorMessage = "Te has≈Ça nie pasujƒÖ do siebie. Spr√≥buj ponownie.")]
+            [Display(Name = "Potwierdü has≥o")]
+            [Compare("Password", ErrorMessage = "Te has≥a nie pasujπ do siebie. SprÛbuj ponownie.")]
             public string ConfirmPassword { get; set; }
 
             [DataType(DataType.PhoneNumber)]
-            [Display(Name ="Podaj numer telefonu")]
+            [Display(Name = "Podaj numer telefonu")]
             public string PhoneNumber { get; set; }
 
         }
@@ -93,29 +97,29 @@ namespace Projek_MVC_v2.Areas.Identity.Pages.Account
             {
                 var user = new ApplicationUser
                 {
-                    user = 1,
-                    nip = null,
-                    firma = null,
-                    imie = Input.Imie,
-                    nazwisko = Input.Nazwisko,
+                    user = 0,
+                    nip = Input.Nip,
+                    firma = Input.Firma,
+                    imie = null,
+                    nazwisko = null,
                     UserName = Input.Email,
-                    Email = Input.Email 
+                    Email = Input.Email
                 };
                 var result = await _userManager.CreateAsync(user, Input.Password);
-                
+
                 if (result.Succeeded)
                 {
                     var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
 
-                    var confirmationLink = Url.Action("ConfirmEmail", "Register", 
-                        new { userId = user.Id, token = token}, Request.Scheme);
+                    var confirmationLink = Url.Action("ConfirmEmail", "Register",
+                        new { userId = user.Id, token = token }, Request.Scheme);
 
                     /*if (_signInManager.IsSignedIn(User) && User.IsInRole("Admin"))//tutaj zrobic logowanie admina
                     {
                         return RedirectToAction("");
                     }*/
 
-                    _logger.LogInformation("U≈ºytkownik utworzy≈Ç nowe konto z has≈Çem.");
+                    _logger.LogInformation("Uøytkownik utworzy≥ nowe konto z has≥em.");
 
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                     code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
@@ -125,8 +129,8 @@ namespace Projek_MVC_v2.Areas.Identity.Pages.Account
                         values: new { area = "Identity", userId = user.Id, code = code },
                         protocol: Request.Scheme);
 
-                    await _emailSender.SendEmailAsync(Input.Email, "Potwierd≈∫ sw√≥j adres e-mail",
-                        $"Potwierd≈∫ sw√≥j adres e-mail poprzez <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>klikniƒôcie tutaj</a>.");
+                    await _emailSender.SendEmailAsync(Input.Email, "Potwierdü swÛj adres e-mail",
+                        $"Potwierdü swÛj adres e-mail poprzez <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>klikniÍcie tutaj</a>.");
 
                     if (_userManager.Options.SignIn.RequireConfirmedAccount)
                     {
@@ -149,3 +153,4 @@ namespace Projek_MVC_v2.Areas.Identity.Pages.Account
         }
     }
 }
+
