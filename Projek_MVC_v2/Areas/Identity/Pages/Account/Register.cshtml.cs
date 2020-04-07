@@ -115,6 +115,10 @@ namespace Projek_MVC_v2.Areas.Identity.Pages.Account
                         return RedirectToAction("");
                     }*/
 
+                   
+
+                  
+
                     _logger.LogInformation("Użytkownik utworzył nowe konto z hasłem.");
 
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
@@ -126,6 +130,7 @@ namespace Projek_MVC_v2.Areas.Identity.Pages.Account
                         protocol: Request.Scheme);
 
                     await _emailSender.SendEmailAsync(Input.Email, "Potwierdź swój adres e-mail",
+                       // $"<center><img src='cid:{0}'></center>" +
                         $"Potwierdź swój adres e-mail poprzez <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>kliknięcie tutaj</a>.");
 
                     if (_userManager.Options.SignIn.RequireConfirmedAccount)

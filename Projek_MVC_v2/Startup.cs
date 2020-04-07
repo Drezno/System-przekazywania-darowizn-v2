@@ -15,6 +15,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Projek_MVC_v2.Models;
+using Microsoft.AspNetCore.Identity.UI.Services;
 
 namespace Projek_MVC_v2
 {
@@ -46,6 +47,8 @@ namespace Projek_MVC_v2
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddControllersWithViews();
             services.AddRazorPages();
+            services.AddTransient<IEmailSender, EmailSender>();
+
             /////////////////////////////////
             services.Configure<IdentityOptions>(options =>
             {
