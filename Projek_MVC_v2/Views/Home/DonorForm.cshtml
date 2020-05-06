@@ -4,80 +4,163 @@
     ViewBag.Title = "Przekazywanie podarków";
 }
 
-    <h1>@ViewData["Title"]</h1>
+<h1>@ViewData["Title"]</h1>
 
-<div class="row">
-    <div class="col-md-12">
-        <form method="post">
 
-            <div asp-validation-summary="All" class="text-danger"></div>
+
+
+@using (Html.BeginForm("Donation", "Home", FormMethod.Post))
+{
+
+    <div class="row">
+        <div class="col-md-12">
 
             <div class="form-group">
                 <label asp-for="Email">Email</label>
-                <input asp-for="Email" class="form-control" />
+                @Html.TextBoxFor(model => model.Email)
                 <span asp-validation-for="Email" class="text-danger"></span>
             </div>
 
             <div class="form-group">
                 <label asp-for="First_Name">Imię</label>
-                <input asp-for="First_Name" class="form-control" />
+                @Html.TextBoxFor(model => model.First_Name)
                 <span asp-validation-for="First_Name" class="text-danger"></span>
             </div>
 
             <div class="form-group">
                 <label asp-for="Last_Name">Nazwisko</label>
-                <input asp-for="Last_Name" class="form-control" />
+                @Html.TextBoxFor(model => model.Last_Name)
                 <span asp-validation-for="Last_Name" class="text-danger"></span>
             </div>
 
             <div class="form-group">
                 <label asp-for="PhoneNumber">Numer telefonu*</label>
-                <input asp-for="PhoneNumber" class="form-control" />
+                @Html.TextBoxFor(model => model.PhoneNumber)
                 <span asp-validation-for="PhoneNumber" class="text-danger"></span>
             </div>
 
             <div class="form-group">
                 <label asp-for="County">Województwo*</label>
-                <input asp-for="County" class="form-control" />
+                @Html.TextBoxFor(model => model.County)
                 <span asp-validation-for="County" class="text-danger"></span>
             </div>
 
             <div class="form-group">
                 <label asp-for="City">Miejscowość*</label>
-                <input asp-for="City" class="form-control" />
+                @Html.TextBoxFor(model => model.City)
                 <span asp-validation-for="City" class="text-danger"></span>
             </div>
 
             <div class="form-group">
                 <label asp-for="Street">Ulica*</label>
-                <input asp-for="Street" class="form-control" />
+                @Html.TextBoxFor(model => model.Street)
                 <span asp-validation-for="Street" class="text-danger"></span>
             </div>
 
             <div class="form-group">
                 <label asp-for="Street_Number">Numer budynku*</label>
-                <input asp-for="Street_Number" class="form-control" />
+                @Html.TextBoxFor(model => model.Street_Number)
                 <span asp-validation-for="Street_Number" class="text-danger"></span>
             </div>
 
             <div class="form-group">
                 <label asp-for="PostalCode">Kod pocztowy*</label>
-                <input asp-for="PostalCode" class="form-control" name="postal_code" />
+                @Html.TextBoxFor(model => model.PostalCode)
                 <span asp-validation-for="PostalCode" class="text-danger"></span>
             </div>
 
-            <!--<div class="form-group">
+            <div class="form-group">
                 <label for="birthday">Wybierz datę odbioru podarków*:</label>
-                <input type="date" id="pickup_date" name="pickup_date">
+                @Html.TextBoxFor(model => model.Date)
                 <span asp-validation-for="Date" class="text-danger"></span>
-            </div>-->
+            </div>
 
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Przekaż darowiznę" class="btn btn-primary" />
+                </div>
+            </div>
 
-            <button class="btn btn-primary" type="button" onclick="location.href='@Url.Action("Donation", "Home")'">Przekaż darowiznę</button>
-            <!--<button OnClick="send_Click" class="btn btn-primary">Przekaż darowiznę</button>
-            <button type="submit" class="btn btn-primary">Przekaż darowiznę</button><br />-->
             <p>* - pola wymagane</p>
 
-        </form>
+        </div>
     </div>
-</div>
+}
+
+    <!--<div class="row">
+        <div class="col-md-12">
+            <form method="post">
+
+                <div asp-validation-summary="All" class="text-danger"></div>
+
+                <div class="form-group">
+                    <label asp-for="Email">Email</label>
+                    <input asp-for="Email" class="form-control" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="First_Name">Imię</label>
+                    <input asp-for="First_Name" class="form-control" />
+                    <span asp-validation-for="First_Name" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Last_Name">Nazwisko</label>
+                    <input asp-for="Last_Name" class="form-control" />
+                    <span asp-validation-for="Last_Name" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="PhoneNumber">Numer telefonu*</label>
+                    <input asp-for="PhoneNumber" class="form-control" />
+                    <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="County">Województwo*</label>
+                    <input asp-for="County" class="form-control" />
+                    <span asp-validation-for="County" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="City">Miejscowość*</label>
+                    <input asp-for="City" class="form-control" />
+                    <span asp-validation-for="City" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Street">Ulica*</label>
+                    <input asp-for="Street" class="form-control" />
+                    <span asp-validation-for="Street" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Street_Number">Numer budynku*</label>
+                    <input asp-for="Street_Number" class="form-control" />
+                    <span asp-validation-for="Street_Number" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="PostalCode">Kod pocztowy*</label>
+                    <input asp-for="PostalCode" class="form-control" name="postal_code" />
+                    <span asp-validation-for="PostalCode" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label for="birthday">Wybierz datę odbioru podarków*:</label>
+                    <input type="date" id="pickup_date" name="pickup_date">
+                    <span asp-validation-for="Date" class="text-danger"></span>
+                </div>
+
+
+                <button class="btn btn-primary" type="button" onclick="location.href='@Url.Action("Donation", "Home")'">Przekaż darowiznę</button>
+
+
+                <button OnClick="send_Click" class="btn btn-primary">Przekaż darowiznę</button>
+                <button type="submit" class="btn btn-primary">Przekaż darowiznę</button><br />
+                <p>* - pola wymagane</p>
+
+            </form>
+        </div>
+    </div>-->

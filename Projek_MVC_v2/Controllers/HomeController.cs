@@ -39,7 +39,7 @@ namespace Projek_MVC_v2.Controllers
             return View();
         }
 
-        [HttpGet]
+        //[HttpGet]
         public IActionResult DonorForm()
         {
             return View();
@@ -47,7 +47,9 @@ namespace Projek_MVC_v2.Controllers
 
 
 
-        //[HttpPost]
+        
+
+        //[HttpGet]
         public ActionResult Donation(Projek_MVC_v2.Models.DonorFormModel model)
         {
             //string mm = Request["postal_code"];
@@ -76,7 +78,7 @@ namespace Projek_MVC_v2.Controllers
                 "Numer telefonu: "+model.PhoneNumber+"\n" +
                 "Województwo: "+model.County+"\n" +
                 "Miasto: "+model.City+"\n" +
-                "Ulica"+model.Street+" "+model.Street_Number+"\n" +
+                "Ulica: "+model.Street+" "+model.Street_Number+"\n" +
                 "Kod pocztowy: "+model.PostalCode+"\n" +
                 "Preferowana data odbioru: "+"\n" +
                 "Przekazuje dla organizacji: ";
