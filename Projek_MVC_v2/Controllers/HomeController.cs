@@ -42,11 +42,11 @@ namespace Projek_MVC_v2.Controllers
             return View();
         }
 
-        [HttpPost]
+        //[HttpPost]
         public ActionResult Donation(Projek_MVC_v2.Models.DonorFormModel model)
         {
             //string mm = Request["postal_code"];
-            /*string imie = Request["firstName"];
+            /*string imie = model.First_Name;
             string subject = "Przekazanie darowizny";
 
             MailMessage mm = new MailMessage();
@@ -65,7 +65,7 @@ namespace Projek_MVC_v2.Controllers
 
             MailMessage mail = new MailMessage("dobrowraca1997@gmail.com", "paxior788@gmail.com");
             mail.Subject = "Przekazano darowiznę";
-            mail.Body = "DANE DARCZYŃCY: "+model.Email;
+            mail.Body = "DANE DARCZYŃCY: ";// +model.Email;
             mail.IsBodyHtml = false;
             SmtpClient smtp = new SmtpClient();
             smtp.Host = "smtp.gmail.com";
