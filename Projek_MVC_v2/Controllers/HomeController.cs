@@ -21,6 +21,9 @@ namespace Projek_MVC_v2.Controllers
             _logger = logger;
         }
 
+
+
+
         public IActionResult Index()
         {
             return View();
@@ -41,6 +44,8 @@ namespace Projek_MVC_v2.Controllers
         {
             return View();
         }
+
+
 
         //[HttpPost]
         public ActionResult Donation(Projek_MVC_v2.Models.DonorFormModel model)
@@ -65,7 +70,16 @@ namespace Projek_MVC_v2.Controllers
 
             MailMessage mail = new MailMessage("dobrowraca1997@gmail.com", "paxior788@gmail.com");
             mail.Subject = "Przekazano darowiznę";
-            mail.Body = "DANE DARCZYŃCY: ";// +model.Email;
+            mail.Body = "DANE DARCZYŃCY\nEmail: "+model.Email+"\n" +
+                "Imię: "+model.First_Name+"\n" +
+                "Nazwisko: "+model.Last_Name+"\n" +
+                "Numer telefonu: "+model.PhoneNumber+"\n" +
+                "Województwo: "+model.County+"\n" +
+                "Miasto: "+model.City+"\n" +
+                "Ulica"+model.Street+" "+model.Street_Number+"\n" +
+                "Kod pocztowy: "+model.PostalCode+"\n" +
+                "Preferowana data odbioru: "+"\n" +
+                "Przekazuje dla organizacji: ";
             mail.IsBodyHtml = false;
             SmtpClient smtp = new SmtpClient();
             smtp.Host = "smtp.gmail.com";
