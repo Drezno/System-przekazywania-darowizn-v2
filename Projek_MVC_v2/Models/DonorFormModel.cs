@@ -27,6 +27,9 @@ namespace Projek_MVC_v2.Models
         //{
 
         //}
+        
+        public string Campaign { get; set; }
+
         [EmailAddress]
         public string Email { get; set; }
 

@@ -6,14 +6,38 @@
 
 <h1>@ViewData["Title"]</h1>
 
+<script>
+    var str = window.location.href;
+    var n = str.lastIndexOf('/');
+    var result = str.substring(n + 1);
+
+    document.getElementById("main_form").action = "/Home/Donation/2";
+</script>
 
 
+<!--<form action="/Home/Donation/1" method="post">
+    <label for="First_Name">Name</label>
+    <input type="text" name="First_Name" />
 
-@using (Html.BeginForm("Donation", "Home", FormMethod.Post))
+    <label for="Last_Name">Last</label>
+    <input type="text" name="Last_Name" />
+    <label for="Email">Email</label>
+    <input type="text" name="Email" />
+    <input type="submit" name="submit" />
+</form>-->
+
+<!--
+@using (Html.BeginForm("Donation", "Home", new {name="kampania", id = "1" }, FormMethod.Post))
 {
 
     <div class="row">
         <div class="col-md-12">
+
+            <div class="form-group">
+                <label asp-for="Campaign">Wybrana kampania: </label>
+                @Html.HiddenFor(model => model.Campaign, new { @Value = 2 })
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
 
             <div class="form-group">
                 <label asp-for="Email">Email</label>
@@ -85,13 +109,18 @@
 
         </div>
     </div>
-}
+}-->
 
-    <!--<div class="row">
+    <div class="row">
         <div class="col-md-12">
-            <form method="post">
+            <form id="main_form" action="/Home/Donation/1" method="post">
 
                 <div asp-validation-summary="All" class="text-danger"></div>
+
+                <div class="form-group">
+                    <label asp-for="Campaign">Kampania numer: </label>
+                    <span asp-validation-for="Campaign" class="text-danger"></span>
+                </div>
 
                 <div class="form-group">
                     <label asp-for="Email">Email</label>
@@ -143,24 +172,24 @@
 
                 <div class="form-group">
                     <label asp-for="PostalCode">Kod pocztowy*</label>
-                    <input asp-for="PostalCode" class="form-control" name="postal_code" />
+                    <input asp-for="PostalCode" class="form-control" />
                     <span asp-validation-for="PostalCode" class="text-danger"></span>
                 </div>
 
                 <div class="form-group">
                     <label for="birthday">Wybierz datę odbioru podarków*:</label>
-                    <input type="date" id="pickup_date" name="pickup_date">
+                    <input type="date" id="pickup_date">
                     <span asp-validation-for="Date" class="text-danger"></span>
                 </div>
 
+                <input type="submit" name="submit" />
+                <!--<button class="btn btn-primary" type="button" onclick="location.href='@Url.Action("Donation", "Home")'">Przekaż darowiznę</button>
 
-                <button class="btn btn-primary" type="button" onclick="location.href='@Url.Action("Donation", "Home")'">Przekaż darowiznę</button>
 
-
-                <button OnClick="send_Click" class="btn btn-primary">Przekaż darowiznę</button>
-                <button type="submit" class="btn btn-primary">Przekaż darowiznę</button><br />
+    <button OnClick="send_Click" class="btn btn-primary">Przekaż darowiznę</button>
+    <button type="submit" class="btn btn-primary">Przekaż darowiznę</button><br />-->
                 <p>* - pola wymagane</p>
 
             </form>
         </div>
-    </div>-->
+    </div>

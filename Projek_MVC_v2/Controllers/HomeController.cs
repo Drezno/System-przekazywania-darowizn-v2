@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Web.Helpers;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Org.BouncyCastle.Asn1.Ocsp;
 using Projek_MVC_v2.Models;
 
 namespace Projek_MVC_v2.Controllers
@@ -50,7 +51,7 @@ namespace Projek_MVC_v2.Controllers
         
 
         //[HttpGet]
-        public ActionResult Donation(Projek_MVC_v2.Models.DonorFormModel model)
+        public ActionResult Donation(Projek_MVC_v2.Models.DonorFormModel model, int id)
         {
             //string mm = Request["postal_code"];
             /*string imie = model.First_Name;
@@ -68,11 +69,11 @@ namespace Projek_MVC_v2.Controllers
             smtp.EnableSsl = true;
             smtp.Credentials = new System.Net.NetworkCredential("dobrowraca1997@gmail.com", "poziom1C");
             smtp.Send(mm);*/
-
+            
 
             MailMessage mail = new MailMessage("dobrowraca1997@gmail.com", "paxior788@gmail.com");
-            mail.Subject = "Przekazano darowiznę";
-            mail.Body = "DANE DARCZYŃCY\nEmail: "+model.Email+"\n" +
+            mail.Subject = "Przekazano darowiznę na kampanię "+"'"+id+"'";
+            mail.Body = "DANE DARCZYŃCY\n\nEmail: "+model.Email+"\n" +
                 "Imię: "+model.First_Name+"\n" +
                 "Nazwisko: "+model.Last_Name+"\n" +
                 "Numer telefonu: "+model.PhoneNumber+"\n" +
@@ -80,7 +81,7 @@ namespace Projek_MVC_v2.Controllers
                 "Miasto: "+model.City+"\n" +
                 "Ulica: "+model.Street+" "+model.Street_Number+"\n" +
                 "Kod pocztowy: "+model.PostalCode+"\n" +
-                "Preferowana data odbioru: "+"\n" +
+                "Preferowana data odbioru: "+model.Date+"\n" +
                 "Przekazuje dla organizacji: ";
             mail.IsBodyHtml = false;
             SmtpClient smtp = new SmtpClient();
