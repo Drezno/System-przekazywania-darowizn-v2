@@ -41,5 +41,9 @@ namespace Projek_MVC_v2.Models
         [Required]
         [DataType(DataType.PostalCode)]
         public string PostalCode { get; set; }
+
+        [Required]
+        [DataType(DataType.Date)]
+        public DateTime Date { get; set; }
     }
 }

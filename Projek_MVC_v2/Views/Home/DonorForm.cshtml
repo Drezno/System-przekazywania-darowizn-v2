@@ -55,7 +55,12 @@
                 <input asp-for="PostalCode" class="form-control" />
                 <span asp-validation-for="PostalCode" class="text-danger"></span>
             </div>
-            <button type="submit" class="btn btn-primary">Wybierz datę odbioru</button><br />
+            <div class="form-group">
+                <label for="birthday">Wybierz datę odbioru podarków*:</label>
+                <input type="date" id="pickup_date" name="pickup_date">
+                <span asp-validation-for="Date" class="text-danger"></span>
+            </div>
+            <button type="submit" class="btn btn-primary">Przekaż darowiznę</button><br />
             <p>* - pola wymagane</p>
         </form>
     </div>
