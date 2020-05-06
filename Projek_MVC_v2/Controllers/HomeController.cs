@@ -45,8 +45,6 @@ namespace Projek_MVC_v2.Controllers
         [HttpPost]
         public ActionResult Donation(Projek_MVC_v2.Models.DonorFormModel model)
         {
-            string mail = model.Get("");
-
             //string mm = Request["postal_code"];
             /*string imie = Request["firstName"];
             string subject = "Przekazanie darowizny";
@@ -62,10 +60,10 @@ namespace Projek_MVC_v2.Controllers
             smtp.UseDefaultCredentials = true;
             smtp.EnableSsl = true;
             smtp.Credentials = new System.Net.NetworkCredential("dobrowraca1997@gmail.com", "poziom1C");
-            smtp.Send(mm);
+            smtp.Send(mm);*/
 
 
-            /*MailMessage mail = new MailMessage("dobrowraca1997@gmail.com", "paxior788@gmail.com");
+            MailMessage mail = new MailMessage("dobrowraca1997@gmail.com", "paxior788@gmail.com");
             mail.Subject = "Przekazano darowiznę";
             mail.Body = "DANE DARCZYŃCY: "+model.Email;
             mail.IsBodyHtml = false;
@@ -77,9 +75,7 @@ namespace Projek_MVC_v2.Controllers
             NetworkCredential nc = new NetworkCredential("dobrowraca1997@gmail.com", "poziom1C");
             smtp.UseDefaultCredentials = true;
             smtp.Credentials = nc;
-            smtp.Send(mail);*/
-
-            
+            smtp.Send(mail);
 
             return View();
         }
