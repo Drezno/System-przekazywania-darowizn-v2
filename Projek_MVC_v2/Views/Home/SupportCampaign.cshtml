@@ -11,9 +11,11 @@
 
         <!--<button id="_button" class="btn btn-outline-secondary" type="button" onclick="location.href='@Url.Action("DonorForm", "Home", new { id = "" })'">Przekaż podarunek</button>
     -->
-        <a id="_link" href="@Url.Action("DonorForm", "Home", new { id = ""})";>
-        <button id="_button" class="btn btn-outline-secondary" type="button">Przekaż podarunek</button>
+        <a id="_link" href="@Url.Action("DonorForm", "Home")";>
+            <button id="_button" class="btn btn-outline-secondary" type="button">Przekaż podarunek</button>
         </a>
+
+
         <script>
             var str = window.location.href;
             var n = str.lastIndexOf('/');
