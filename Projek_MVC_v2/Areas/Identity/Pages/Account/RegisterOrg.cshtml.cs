@@ -81,6 +81,13 @@ namespace Projek_MVC_v2.Areas.Identity.Pages.Account
             [Display(Name = "Podaj numer telefonu")]
             public string PhoneNumber { get; set; }
 
+            
+           
+            public bool odziez { get; set; }
+            public bool leki { get; set; }
+            public bool zywnosc { get; set; }
+
+
         }
 
         public async Task OnGetAsync(string returnUrl = null)

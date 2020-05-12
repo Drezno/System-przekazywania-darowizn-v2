@@ -1,0 +1,95 @@
+﻿@page
+@model Projek_MVC_v2.Areas.Identity.Pages.Account.Manage.CampaniaModel
+@{
+    ViewData["Title"] = "Stwórz kampanie";
+    ViewData["ActivePage"] = ManageNavPages.Createcampaign;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h4>@ViewData["Title"]</h4>
+<partial name="_StatusMessage" model="Model.StatusMessage" />
+<div class="row">
+    <div class="col-md-6">
+        <form id="profile-form" method="post" enctype="multipart/form-data">
+            <div asp-validation-summary="All" class="text-danger"></div>
+
+            <div class="form-group">
+                <label asp-for="Username">Nazwa użytkownika</label>
+                <input asp-for="Username" class="form-control" readonly="readonly" />
+                
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Phone">Numer telefonu</label>
+                <input asp-for="Phone" class="form-control" readonly="readonly" />
+               
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Input.title">Tytyuł kampanii</label>
+                <input asp-for="Input.title" class="form-control" />
+                <span asp-validation-for="Input.title" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Input.k_opis">Krótki opis</label>
+                <textarea asp-for="Input.k_opis" class="form-control" rows="3"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Input.d_opis">Długi opis</label>
+                <textarea asp-for="Input.d_opis" class="form-control" rows="5"></textarea>
+            </div>
+
+            <label class="form-check-label" for="exampleCheck1">Zainteresowanie</label>
+
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" asp-for="Input.odziez" id="defaultCheck1">
+                <label class="form-check-label" asp-for="Input.odziez">
+                    Odzież
+                </label>
+            </div>
+
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" asp-for="Input.leki" id="defaultCheck2">
+                <label class="form-check-label" asp-for="Input.leki">
+                    Leki
+                </label>
+            </div>
+
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" asp-for="Input.zywnosc" id="defaultCheck3">
+                <label class="form-check-label" asp-for="Input.zywnosc">
+                    Żywność
+                </label>
+            </div>
+
+            <div class="form-group">
+                <label for="exampleFormControlFile1" asp-for="Input.obrazek">Logo kampanii</label>
+                <input type="file" class="form-control-file" id="exampleFormControlFile1" asp-for="Input.obrazek">
+            </div>
+
+            <button id="update-profile-button" type="submit" class="btn btn-primary">Stwórz kampanie</button>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

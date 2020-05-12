@@ -40,8 +40,8 @@ namespace Projek_MVC_v2
 
             /////////////////////////////////³¹cznoœæ z baz¹ - NIE RUSZAÆ
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseMySql(
-                    Configuration.GetConnectionString("DefaultConnection")));
+               options.UseMySql(
+                   Configuration.GetConnectionString("DefaultConnection")));
             
             services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
