@@ -7,6 +7,8 @@ using System.Net.Mail;
 using System.Threading.Tasks;
 using System.Web.Helpers;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Data.SqlClient;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Org.BouncyCastle.Asn1.Ocsp;
 using Projek_MVC_v2.Models;
@@ -15,6 +17,8 @@ namespace Projek_MVC_v2.Controllers
 {
     public class HomeController : Controller
     {
+
+        private readonly IConfiguration configuration;
         private readonly ILogger<HomeController> _logger;
 
         public HomeController(ILogger<HomeController> logger)
@@ -27,7 +31,28 @@ namespace Projek_MVC_v2.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            var model = new List<Kampanie>();
+
+            String connectionString = configuration.GetConnectionString("DefaultConnection");
+
+            SqlConnection connection = new SqlConnection(connectionString);
+            connection.Open();
+            SqlCommand com = new SqlCommand("Select * from kampanie", connection);
+            SqlDataReader rdr = com.ExecuteReader();
+
+            while (rdr.Read())
+            {
+                var cam = new Kampanie();
+                cam.ID_kampanii = (int)rdr["idkampanie"];
+                cam.tytul_kampanii = rdr["tytul"].ToString();
+
+                model.Add(cam);
+            }
+
+
+            connection.Close();
+
+            return View(model);
         }
 
         public IActionResult Privacy()
