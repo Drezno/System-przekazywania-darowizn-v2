@@ -28,9 +28,9 @@ namespace Projek_MVC_v2.Controllers
 
 
 
-
+        
         public IActionResult Index()
-        {
+        {/*
             var model = new List<Kampanie>();
 
             String connectionString = configuration.GetConnectionString("DefaultConnection");
@@ -51,10 +51,10 @@ namespace Projek_MVC_v2.Controllers
 
 
             connection.Close();
-
-            return View(model);
+            */
+            return View();
         }
-
+        
         public IActionResult Privacy()
         {
             return View();
