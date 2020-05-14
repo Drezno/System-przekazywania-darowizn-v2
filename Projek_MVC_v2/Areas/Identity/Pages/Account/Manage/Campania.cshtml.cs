@@ -5,11 +5,13 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Data.SqlClient;
+using MimeKit.IO.Filters;
 using MySql.Data.MySqlClient;
 using Projek_MVC_v2.Data;
 using Projek_MVC_v2.Models;
@@ -18,6 +20,7 @@ namespace Projek_MVC_v2.Areas.Identity.Pages.Account.Manage
 {
     public class CampaniaModel : PageModel
     {
+        
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private string returnUrl;
@@ -72,7 +75,7 @@ namespace Projek_MVC_v2.Areas.Identity.Pages.Account.Manage
             public bool zywnosc { get; set; }
 
             [Display(Name = "Logo")]
-            public bool obrazek { get; set; }
+            public IFormFile ForFile { get; set; }
 
 
         }
@@ -137,6 +140,46 @@ namespace Projek_MVC_v2.Areas.Identity.Pages.Account.Manage
                 
 
 
+                var file = Input.ForFile;
+                string newFullPath = null;
+                if (file !=null)
+                {
+                    
+                    int count = 1;
+
+                   // var formFile = HttpContext.Request.Form.Files[0];
+
+                    var fullPath = Path.Combine(@"C:\\Users\\damia\\source\\repos\\System-przekazywania-darowizn-v2\\Projek_MVC_v2\\wwwroot\\images\\uploads\\", file.FileName);
+                    
+                    string fileNameOnly = Path.GetFileNameWithoutExtension(fullPath);
+                    
+                    string extension = Path.GetExtension(fullPath);
+                    
+                    //string path = Path.GetDirectoryName(fullPath);
+
+                    string PATH = @"C:\\Users\\damia\\source\\repos\\System-przekazywania-darowizn-v2\\Projek_MVC_v2\\wwwroot\\images\\uploads\\";
+
+
+                    newFullPath = fullPath;
+
+
+                    while (System.IO.File.Exists(newFullPath))
+                    {
+                        string tempFileName = string.Format("{0}({1})", fileNameOnly, count++);
+                        newFullPath = Path.Combine(PATH+@"\", tempFileName + extension);
+
+                    } 
+
+
+                    using (var fileStream = new FileStream(newFullPath, FileMode.Create))
+                    {
+                        await file.CopyToAsync(fileStream);
+                    }
+
+
+                    //StatusMessage = formFile;
+                }
+                
                 int o = Input.odziez ? 1 : 0;
                 int l = Input.leki ? 1 : 0;
                 int z = Input.zywnosc ? 1 : 0;
@@ -144,7 +187,7 @@ namespace Projek_MVC_v2.Areas.Identity.Pages.Account.Manage
                 DatabaseConnection db = new DatabaseConnection();
                 MySqlConnection cnn = new MySqlConnection(db.GetConString());
                 var command = cnn.CreateCommand();
-                command.CommandText = "INSERT INTO kampanie (username,tytul,opis,krotki_opis,odziez,leki,zywnosc,telefon) VALUES ('" + user + "','" + Input.title + "','" + Input.d_opis + "','" + Input.k_opis + "','" + o + "','" + l + "','"+ z + "','"+ ph + "')";
+                command.CommandText = "INSERT INTO kampanie (username,tytul,opis,krotki_opis,odziez,leki,zywnosc,telefon,picture) VALUES ('" + user + "','" + Input.title + "','" + Input.d_opis + "','" + Input.k_opis + "','" + o + "','" + l + "','"+ z + "','"+ ph + "','" + newFullPath + "')";
                 cnn.Open();
                 command.ExecuteNonQuery();
                 cnn.Close();
@@ -155,6 +198,7 @@ namespace Projek_MVC_v2.Areas.Identity.Pages.Account.Manage
             return RedirectToPage();
         }
 
+     
 
 
     }
