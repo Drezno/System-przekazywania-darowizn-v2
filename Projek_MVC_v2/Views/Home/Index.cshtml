@@ -1,32 +1,63 @@
-﻿@{
+﻿@model List<KampanieDisplayDataModel>
+@{
     ViewData["Title"] = "Home Page";
 }
+@using MySql.Data.MySqlClient;
+@using System.Linq;
+@{
+    var model = new List<KampanieDisplayDataModel>();
+    DatabaseConnection db = new DatabaseConnection();
+    MySqlConnection cnn = new MySqlConnection(db.GetConString());
+    var command = cnn.CreateCommand();
+    command.CommandText = "select idkampanie,username,tytul,krotki_opis,picture from kampanie";
+    cnn.Open();
 
-    <div class="text-center">
-        <h1 class="display-4">System Przekazywania Darowizn</h1>
-        <p>OPISAĆ CEL/ZAŁOŻENIA PROJEKTU.</p><br />
-        <section class="part2">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-4">
-                        <img alt="" class="resize-image center-block" id="image1" width="100%" height="auto" border-radius="25px" src="~/images/kat-yukawa-K0E6E0a0R3A-unsplash.jpg" />
-                            <p class="text-center"><strong>TYTUŁ KAMPANII NUMER 1</strong></p>
-                            <p class="text-center">SKRÓCONY OPIS KAMPANII NR 1 NA ZAŁÓŻMY HMMMMMM 140/280 ZNAKÓW</p>
-                                <button id="1" class="btn btn-outline-secondary" type="button" onclick="location.href='@Url.Action("SupportCampaign","Home", new { id = "1" })'">Wspomóż</button>
-                    </div>
-                    <div class="col-md-4">
-                        <img alt="" class="resize-image center-block" id="image2" width="100%" height="auto" border-radius="25px" src="~/images/perry-grone-lbLgFFlADrY-unsplash.jpg" />
-                            <p class="text-center"><strong>TYTUŁ KAMPANII NUMER 2</strong></p>
-                            <p class="text-center">SKRÓCONY OPIS KAMPANII NR 2 NA ZAŁÓŻMY HMMMMMM 140/280 ZNAKÓW</p>
-                                <button id="2" class="btn btn-outline-secondary" type="button" onclick="location.href='@Url.Action("SupportCampaign","Home", new { id = "2" })'">Wspomóż</button>
-                    </div>
-                    <div class="col-md-4">
-                        <img alt="" class="resize-image center-block" id="image3" width="100%" height="auto" border-radius="25px" src="~/images/sandy-millar-S5pFhDxUXyw-unsplash.jpg" />
-                            <p class="text-center"><strong>TYTUŁ KAMPANII NUMER 3</strong></p>
-                            <p class="text-center">SKRÓCONY OPIS KAMPANII NR 3 NA ZAŁÓŻMY HMMMMMM 140/280 ZNAKÓW</p>
-                                <button id="3" class="btn btn-outline-secondary" type="button" onclick="location.href='@Url.Action("SupportCampaign","Home", new { id = "3" })'">Wspomóż</button>
-                    </div>
+    MySqlDataReader rdr = command.ExecuteReader();
+
+    while (rdr.Read())
+    {
+        var KapaniaModel = new KampanieDisplayDataModel();
+        KapaniaModel.idkampania = (int)rdr["idkampanie"];
+        KapaniaModel.username = (string)rdr["username"];
+
+        KapaniaModel.tytul = (string)rdr["tytul"];
+
+        KapaniaModel.krotkiopis = (string)rdr["krotki_opis"];
+
+        KapaniaModel.obrazek_path = (string)rdr["picture"];
+
+        model.Add(KapaniaModel);
+
+    }
+
+    //command.ExecuteNonQuery();
+    cnn.Close();
+
+
+   
+
+}
+
+<div class="text-center">
+    <h1 class="display-4">System Przekazywania Darowizn</h1>
+    <p>OPISAĆ CEL/ZAŁOŻENIA PROJEKTU.</p><br />
+    <section class="part2">
+        <div class="container">
+            <div class="row">
+                @foreach (var kampania in model) { 
+                <div class="col-md-4">
+                    <img alt="" class="resize-image center-block" id="image1" width="100%" height="auto" border-radius="25px" src="@kampania.obrazek_path" />
+                    <p class="text-center"><strong>@kampania.tytul</strong></p>
+                    <p class="text-center">@kampania.krotkiopis</p>
+                    @{ if (model.Any())
+                        {
+                            <button id="1" class="btn btn-outline-secondary" type="button" onclick="location.href='@Url.Action("SupportCampaign","Home", new { id = kampania.idkampania })'">Wspomóż</button>
+                        }
+                    }
+
                 </div>
+                }
             </div>
-        </section>
-    </div>
+        </div>
+    </section>
+</div>

@@ -142,17 +142,18 @@ namespace Projek_MVC_v2.Areas.Identity.Pages.Account.Manage
 
                 var file = Input.ForFile;
                 string newFullPath = null;
+                string tempFileName = null;
                 if (file !=null)
                 {
                     
                     int count = 1;
 
-                   // var formFile = HttpContext.Request.Form.Files[0];
-
+                    // var formFile = HttpContext.Request.Form.Files[0];
+                    
                     var fullPath = Path.Combine(@"C:\\Users\\damia\\source\\repos\\System-przekazywania-darowizn-v2\\Projek_MVC_v2\\wwwroot\\images\\uploads\\", file.FileName);
                     
                     string fileNameOnly = Path.GetFileNameWithoutExtension(fullPath);
-                    
+                    tempFileName = fileNameOnly;
                     string extension = Path.GetExtension(fullPath);
                     
                     //string path = Path.GetDirectoryName(fullPath);
@@ -165,7 +166,7 @@ namespace Projek_MVC_v2.Areas.Identity.Pages.Account.Manage
 
                     while (System.IO.File.Exists(newFullPath))
                     {
-                        string tempFileName = string.Format("{0}({1})", fileNameOnly, count++);
+                        tempFileName = string.Format("{0}({1})", fileNameOnly, count++);
                         newFullPath = Path.Combine(PATH+@"\", tempFileName + extension);
 
                     } 
@@ -176,7 +177,7 @@ namespace Projek_MVC_v2.Areas.Identity.Pages.Account.Manage
                         await file.CopyToAsync(fileStream);
                     }
 
-
+                    newFullPath = @"\/images\/uploads\/" + tempFileName + extension;
                     //StatusMessage = formFile;
                 }
                 
