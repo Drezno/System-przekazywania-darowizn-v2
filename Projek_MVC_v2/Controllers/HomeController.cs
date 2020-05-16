@@ -60,10 +60,7 @@ namespace Projek_MVC_v2.Controllers
             return View();
         }
 
-        public IActionResult SupportCampaign()
-        {
-            return View();
-        }
+      
 
         //[HttpGet]
         public IActionResult DonorForm()
@@ -96,7 +93,7 @@ namespace Projek_MVC_v2.Controllers
             smtp.Send(mm);*/
             
 
-            MailMessage mail = new MailMessage("dobrowraca1997@gmail.com", "paxior788@gmail.com");
+            MailMessage mail = new MailMessage("dobrowraca1997@gmail.com", "zorro322@wp.pl");
             mail.Subject = "Przekazano darowiznę na kampanię "+"'"+id+"'";
             mail.Body = "DANE DARCZYŃCY\n\nEmail: "+model.Email+"\n" +
                 "Imię: "+model.First_Name+"\n" +
@@ -126,6 +123,15 @@ namespace Projek_MVC_v2.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
+        public ActionResult SupportCampaign(string obrazek,string tytul, string opis)
+        {
+            KampanieDisplayDataModel KDDM = new KampanieDisplayDataModel();
+            KDDM.obrazek_path = obrazek;
+            KDDM.tytul = tytul;
+            KDDM.dlugiopis = opis;
+            return View(KDDM);
         }
     }
 }

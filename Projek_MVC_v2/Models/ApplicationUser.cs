@@ -15,5 +15,6 @@ namespace Projek_MVC_v2.Models
         public string firma { get; set; }
         public string nip { get; set; }
         public int user { get; set; }
+        
     }
 }

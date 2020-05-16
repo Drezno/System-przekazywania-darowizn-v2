@@ -99,7 +99,8 @@ namespace Projek_MVC_v2.Areas.Identity.Pages.Account
                     imie = Input.Imie,
                     nazwisko = Input.Nazwisko,
                     UserName = Input.Email,
-                    Email = Input.Email 
+                    Email = Input.Email,
+                    PhoneNumber = Input.PhoneNumber
                 };
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 

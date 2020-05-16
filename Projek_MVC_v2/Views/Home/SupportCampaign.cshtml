@@ -1,13 +1,16 @@
-﻿@{
+﻿@model Projek_MVC_v2.Models.KampanieDisplayDataModel
+@{
     ViewData["Title"] = "Wspomóż wybraną kampanię";
+
 }
+
     <div class="text-center">
         <h1 class="display-4">@ViewData["Title"]</h1>
 
 
-        <img class="resize-image center-block" id="image" width="60%" height="auto" src="~/images/kat-yukawa-K0E6E0a0R3A-unsplash.jpg" />
-        <p id="campaign" class="text-center"><strong>TYTUŁ KAMPANII</strong></p>
-        <p id="description" class="text-center">PEŁNY OPIS KAMPANII</p>
+        <img class="resize-image center-block" id="image" width="60%" height="auto" src="@Model.obrazek_path" />
+        <p id="campaign" class="text-center"><strong>@Model.tytul</strong></p>
+        <p id="description" class="text-center">@Model.dlugiopis</p>
 
         <!--<button id="_button" class="btn btn-outline-secondary" type="button" onclick="location.href='@Url.Action("DonorForm", "Home", new { id = "" })'">Przekaż podarunek</button>
     -->
@@ -15,7 +18,7 @@
             <button id="_button" class="btn btn-outline-secondary" type="button">Przekaż podarunek</button>
         </a>
 
-
+        <!--
         <script>
             var str = window.location.href;
             var n = str.lastIndexOf('/');
@@ -41,7 +44,7 @@
                 document.getElementById("description").innerHTML = "@Url.Content("PEŁNY OPIS NUMER 3")";
                 document.getElementById("_link").href = "@Url.Action("DonorForm", "Home", new { id = "3"})";
             }
-        </script>
+        </script>-->
 
         <!--<script>
         document.getElementById("image").src = "@Url.Content("~/images/sandy-millar-S5pFhDxUXyw-unsplash.jpg")";
