@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
+using MySql.Data.MySqlClient;
 using Projek_MVC_v2.Models;
 
 namespace Projek_MVC_v2.Areas.Identity.Pages.Account.Manage
@@ -69,6 +70,7 @@ namespace Projek_MVC_v2.Areas.Identity.Pages.Account.Manage
 
             var result = await _userManager.DeleteAsync(user);
             var userId = await _userManager.GetUserIdAsync(user);
+            var userName = await _userManager.GetUserNameAsync(user);
             if (!result.Succeeded)
             {
                 throw new InvalidOperationException($"Wystąpił nieoczekiwany błąd podczas usuwania użytkownika z ID '{userId}'.");
@@ -76,7 +78,20 @@ namespace Projek_MVC_v2.Areas.Identity.Pages.Account.Manage
 
             await _signInManager.SignOutAsync();
 
-            _logger.LogInformation("Uæytkownik z ID '{UserId}' został usunięty na własne życzenie.", userId);
+
+            DatabaseConnection db = new DatabaseConnection();
+            MySqlConnection cnn = new MySqlConnection(db.GetConString());
+            var command = cnn.CreateCommand();
+            command.CommandText = "DELETE FROM kampanie where username='" + userName+"'";
+            cnn.Open();
+            command.ExecuteNonQuery();
+            cnn.Close();
+
+
+
+
+
+            _logger.LogInformation("Użytkownik z ID '{UserId}' został usunięty na własne życzenie.", userId);
 
             return Redirect("~/");
         }
