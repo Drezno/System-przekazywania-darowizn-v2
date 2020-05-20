@@ -13,7 +13,7 @@
     DatabaseConnection db = new DatabaseConnection();
     MySqlConnection cnn = new MySqlConnection(db.GetConString());
     var command = cnn.CreateCommand();
-    command.CommandText = "select idkampanie,username,tytul,krotki_opis,opis,picture from kampanie where username='" + user + "'";
+    command.CommandText = "select * from kampanie where username='" + user + "'";
     cnn.Open();
 
     MySqlDataReader rdr = command.ExecuteReader();
@@ -28,6 +28,11 @@
 
         KapaniaModel.krotkiopis = (string)rdr["krotki_opis"];
         KapaniaModel.dlugiopis = (string)rdr["opis"];
+
+        KapaniaModel.odziez = (sbyte)rdr["odziez"];
+        KapaniaModel.leki = (sbyte)rdr["leki"];
+        KapaniaModel.zywnosc = (sbyte)rdr["zywnosc"];
+
 
         KapaniaModel.obrazek_path = (string)rdr["picture"];
 
@@ -52,22 +57,28 @@
             <div class="row">
                 @foreach (var kampania in model)
                 {
-                    <div class="col-md-4">
-                        <img alt="" class="resize-image center-block" id="image1" width="100%" height="auto" border-radius="25px" src="@kampania.obrazek_path" />
-                        <p class="text-center"><strong>@kampania.tytul</strong></p>
-                        <p class="text-center">@kampania.krotkiopis</p>
-                        @{ if (model.Any())
-                            {
-                                <form id="profile-form" method="post">
-                                    <input class="form-control" asp-for="Input.idKampania" value="@kampania.idkampania" type="hidden" name="idkampania" />
-                                    <!-- <input class="form-control" value="@kampania.obrazek_path" type="hidden" name="obrazek" />
-                                    <input class="form-control" value="@kampania.tytul" type="hidden" name="tytul" />
-                                    <input class="form-control" value="@kampania.dlugiopis" type="hidden" name="opis" />-->
-                                    <button id="1" class="btn btn-outline-secondary" type="submit">Usuń kampanię</button>
-                                </form>
-                            }
+                <div class="col-md-4">
+                    <img alt="" class="resize-image center-block" id="image1" width="100%" height="auto" border-radius="25px" src="@kampania.obrazek_path" />
+                    <p class="text-center"><strong>@kampania.tytul</strong></p>
+                    <p class="text-center">@kampania.krotkiopis</p>
+                    @{ if (model.Any())
+                        {
+                            <form id="profile-form" method="post">
+                                <input class="form-control" asp-for="Input.idKampania" value="@kampania.idkampania" type="hidden" name="idkampania" />
+                                <button id="1" class="btn btn-outline-secondary" type="submit">Usuń kampanię</button>
+                            </form>
+
+                            <text>&nbsp;</text>
+
+                <form id="profile-form" method="post">
+                    <input class="form-control" asp-for="Input.idKampania" value="@kampania.idkampania" type="hidden" name="idkampania" />
+
+                    
+                    <button id="2" class="btn btn-outline-secondary" asp-page="./EditMyCampaing" type="submit">Edytuj kampanię</button>
+                </form>
                         }
-                    </div>
+                    }
+                </div>
                 }
             </div>
         </div>

@@ -24,6 +24,8 @@ namespace Projek_MVC_v2.Areas.Identity.Pages.Account.Manage
 
         public static string ShowMyCampaign => "MyCampaign";
 
+        public static string EditMyCampaign => "EditMyCampaign";
+
         public static string IndexNavClass(ViewContext viewContext) => PageNavClass(viewContext, Index);
 
         public static string EmailNavClass(ViewContext viewContext) => PageNavClass(viewContext, Email);
@@ -39,6 +41,8 @@ namespace Projek_MVC_v2.Areas.Identity.Pages.Account.Manage
         public static string CampaignNavClass(ViewContext viewContext) => PageNavClass(viewContext, Createcampaign);
 
         public static string MyCampaignNavClass(ViewContext viewContext) => PageNavClass(viewContext, ShowMyCampaign);
+
+        public static string EditMyCampaignNavClass(ViewContext viewContext) => PageNavClass(viewContext, EditMyCampaign);
 
         private static string PageNavClass(ViewContext viewContext, string page)
         {
