@@ -1,5 +1,5 @@
 ﻿@page
-@model Projek_MVC_v2.Areas.Identity.Pages.Account.Manage.MyCampaniaModel
+@model Projek_MVC_v2.Areas.Identity.Pages.Account.Manage.EditMyCampaingModel
 @inject Microsoft.AspNetCore.Identity.UserManager<ApplicationUser> UM
 @{
     ViewData["Title"] = "Moje kampanie";
@@ -65,15 +65,20 @@
                         {
                             <form id="profile-form" method="post">
                                 <input class="form-control" asp-for="Input.idKampania" value="@kampania.idkampania" type="hidden" name="idkampania" />
-                                <button id="1" class="btn btn-outline-secondary" type="submit">Usuń kampanię</button>
+                                <button id="1" class="btn btn-outline-secondary" type="submit"  asp-page-handler="Work2" >Usuń kampanię</button>
                             </form>
 
                             <text>&nbsp;</text>
 
                 <form id="profile-form" method="post">
-                    <input class="form-control" asp-for="Input.idKampania" value="@kampania.idkampania" type="hidden" name="idkampania" />
+                    <input class="form-control" asp-for="Input.idKampania" value="@kampania.idkampania"  type="hidden" name="idkampania" />
 
-                    
+                    <input class="form-control" asp-for="Input.title" value="@kampania.tytul"  type="hidden" name="title" />
+
+                    <input class="form-control" asp-for="Input.k_opis" value="@kampania.krotkiopis" type="hidden"  name="k_opis" />
+
+                    <input class="form-control" asp-for="Input.d_opis" value="@kampania.dlugiopis"  type="hidden" name="d_opis" />
+
                     <button id="2" class="btn btn-outline-secondary" asp-page="./EditMyCampaing" type="submit">Edytuj kampanię</button>
                 </form>
                         }

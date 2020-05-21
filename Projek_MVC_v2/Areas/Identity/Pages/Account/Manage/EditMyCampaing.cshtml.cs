@@ -41,9 +41,6 @@ namespace Projek_MVC_v2.Areas.Identity.Pages.Account.Manage
         public string Phone { get; set; }
 
 
-
-
-        
         public class InputModel
         {
             [Display(Name = "IdKampanii")]
@@ -104,7 +101,7 @@ namespace Projek_MVC_v2.Areas.Identity.Pages.Account.Manage
 
             await LoadAsync(user);
 
-
+        
 
             return Page();
 
@@ -119,6 +116,21 @@ namespace Projek_MVC_v2.Areas.Identity.Pages.Account.Manage
             MySqlConnection cnn = new MySqlConnection(db.GetConString());
             var command = cnn.CreateCommand();
             command.CommandText = "UPDATE kampanie SET tytul='" + Input.title + "' , opis ='" + Input.d_opis + "' , krotki_opis='" + Input.k_opis + "' where idkampanie='" + Input.idKampania + "'";
+            cnn.Open();
+            command.ExecuteNonQuery();
+            cnn.Close();
+
+
+            return RedirectToPage("./MyCampania");
+        }
+
+        public async Task<IActionResult> OnPostWork2()
+        {
+
+            DatabaseConnection db = new DatabaseConnection();
+            MySqlConnection cnn = new MySqlConnection(db.GetConString());
+            var command = cnn.CreateCommand();
+            command.CommandText = "DELETE FROM kampanie where idkampanie='" + Input.idKampania + "'";
             cnn.Open();
             command.ExecuteNonQuery();
             cnn.Close();
