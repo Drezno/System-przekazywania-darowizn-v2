@@ -40,6 +40,8 @@ namespace Projek_MVC_v2.Areas.Identity.Pages.Account.Manage
 
         public string Phone { get; set; }
 
+      
+
 
         public class InputModel
         {
@@ -61,13 +63,20 @@ namespace Projek_MVC_v2.Areas.Identity.Pages.Account.Manage
             public string d_opis { get; set; }
 
             [Display(Name = "Odziez")]
-            public bool odziez { get; set; }
+            public sbyte odziez { get; set; }
 
             [Display(Name = "Leki")]
-            public bool leki { get; set; }
+            public sbyte leki { get; set; }
 
             [Display(Name = "Zywnosc")]
-            public bool zywnosc { get; set; }
+            public sbyte zywnosc { get; set; }
+
+
+            public bool odz { get; set; }
+            public bool le { get; set; }
+            public bool zyw { get; set; }
+
+
 
             [Display(Name = "Logo")]
             public IFormFile ForFile { get; set; }
@@ -84,6 +93,10 @@ namespace Projek_MVC_v2.Areas.Identity.Pages.Account.Manage
             Username = userName;
             Phone = phoneNumber;
 
+          
+            Input.odz = Input.odziez==1 ? true : false;
+            Input.le = Input.leki == 1 ? true : false;
+            Input.zyw = Input.zywnosc == 1 ? true : false;
 
         }
 
@@ -111,11 +124,13 @@ namespace Projek_MVC_v2.Areas.Identity.Pages.Account.Manage
 
         public async Task<IActionResult> OnPostWork1()
         {
-
+            Input.odziez = Input.odz==true ? (sbyte)1 : (sbyte)0;
+            Input.leki = Input.le == true ? (sbyte)1 : (sbyte)0;
+            Input.zywnosc = Input.zyw == true ? (sbyte)1 : (sbyte)0;
             DatabaseConnection db = new DatabaseConnection();
             MySqlConnection cnn = new MySqlConnection(db.GetConString());
             var command = cnn.CreateCommand();
-            command.CommandText = "UPDATE kampanie SET tytul='" + Input.title + "' , opis ='" + Input.d_opis + "' , krotki_opis='" + Input.k_opis + "' where idkampanie='" + Input.idKampania + "'";
+            command.CommandText = "UPDATE kampanie SET tytul='" + Input.title + "' , opis ='" + Input.d_opis + "' , krotki_opis='" + Input.k_opis + "' , odziez='"+Input.odziez+"' , leki='"+Input.leki+"' , zywnosc='"+Input.zywnosc+"' where idkampanie='" + Input.idKampania + "'";
             cnn.Open();
             command.ExecuteNonQuery();
             cnn.Close();
