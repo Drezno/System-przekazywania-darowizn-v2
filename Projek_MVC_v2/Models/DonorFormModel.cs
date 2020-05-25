@@ -23,15 +23,16 @@ namespace Projek_MVC_v2.Models
 {
     public class DonorFormModel
     {
-        //public DonorFormModel()
-        //{
-
-        //}
+        public DonorFormModel() : base() { }
+        
         
         public string Campaign { get; set; }
 
         [EmailAddress]
-        public string Email { get; set; }
+        public string EmailDarczyncy { get; set; }
+
+        [EmailAddress]
+        public string EmailOdbiorcy { get; set; }
 
         [DataType(DataType.Text)]
         public string First_Name { get; set; }
@@ -66,5 +67,9 @@ namespace Projek_MVC_v2.Models
         [Required]
         [DataType(DataType.Date)]
         public DateTime Date { get; set; }
+
+        [Required]
+        [DataType(DataType.Text)]
+        public string firm_name { get; set; }
     }
 }

@@ -6,10 +6,12 @@ using System.Net;
 using System.Net.Mail;
 using System.Threading.Tasks;
 using System.Web.Helpers;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using MySql.Data.MySqlClient;
 using Org.BouncyCastle.Asn1.Ocsp;
 using Projek_MVC_v2.Models;
 
@@ -17,13 +19,14 @@ namespace Projek_MVC_v2.Controllers
 {
     public class HomeController : Controller
     {
-
+        private readonly UserManager<ApplicationUser> _userManager;
         private readonly IConfiguration configuration;
         private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, UserManager<ApplicationUser> userManager)
         {
             _logger = logger;
+            _userManager = userManager;
         }
 
 
@@ -63,9 +66,37 @@ namespace Projek_MVC_v2.Controllers
       
 
         //[HttpGet]
-        public IActionResult DonorForm()
+        public ActionResult DonorForm(string username, string tytul)
         {
-            return View();
+            var user_EmailDarczyncy = _userManager.GetUserName(HttpContext.User);
+
+            var user_FirstName = _userManager.GetUserAsync(HttpContext.User).Result.imie;
+            var user_LasttName = _userManager.GetUserAsync(HttpContext.User).Result.nazwisko;
+            var user_phibe = _userManager.GetUserAsync(HttpContext.User).Result.PhoneNumber;
+
+            DonorFormModel DFM = new DonorFormModel();
+            DatabaseConnection db = new DatabaseConnection();
+            MySqlConnection cnn = new MySqlConnection(db.GetConString());
+            var command = cnn.CreateCommand();
+            command.CommandText = "select Firma from aspnetusers where UserName='"+username+"'";
+            cnn.Open();
+            MySqlDataReader rdr = command.ExecuteReader();
+
+            while (rdr.Read())
+            {
+                DFM.firm_name = (string)rdr["Firma"];
+            }
+            cnn.Close();
+
+           
+            
+            DFM.Campaign = tytul;
+            DFM.EmailDarczyncy = user_EmailDarczyncy;
+            DFM.EmailOdbiorcy = username;
+            DFM.First_Name = user_FirstName;
+            DFM.Last_Name = user_LasttName;
+            DFM.PhoneNumber = user_phibe;
+            return View(DFM);
         }
 
 
@@ -93,9 +124,9 @@ namespace Projek_MVC_v2.Controllers
             smtp.Send(mm);*/
             
 
-            MailMessage mail = new MailMessage("dobrowraca1997@gmail.com", "zorro322@wp.pl");
-            mail.Subject = "Przekazano darowiznę na kampanię "+"'"+id+"'";
-            mail.Body = "DANE DARCZYŃCY\n\nEmail: "+model.Email+"\n" +
+            MailMessage mail = new MailMessage("dobrowraca1997@gmail.com", model.EmailOdbiorcy);
+            mail.Subject = "Przekazano darowiznę na kampanię "+"'"+model.Campaign+"'";
+            mail.Body = "DANE DARCZYŃCY\n\nEmail: "+model.EmailDarczyncy+"\n" +
                 "Imię: "+model.First_Name+"\n" +
                 "Nazwisko: "+model.Last_Name+"\n" +
                 "Numer telefonu: "+model.PhoneNumber+"\n" +
@@ -104,7 +135,7 @@ namespace Projek_MVC_v2.Controllers
                 "Ulica: "+model.Street+" "+model.Street_Number+"\n" +
                 "Kod pocztowy: "+model.PostalCode+"\n" +
                 "Preferowana data odbioru: "+model.Date+"\n" +
-                "Przekazuje dla organizacji: ";
+                "Przekazuje dla organizacji: "+model.firm_name;
             mail.IsBodyHtml = false;
             SmtpClient smtp = new SmtpClient();
             smtp.Host = "smtp.gmail.com";
@@ -125,9 +156,16 @@ namespace Projek_MVC_v2.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
-        public ActionResult SupportCampaign(string obrazek,string tytul, string opis)
+        public ActionResult SupportCampaign(int idkampania, string username, string telefon, string obrazek,string tytul, string opis,string k_opis, sbyte odziez, sbyte leki, sbyte zywnosc)
         {
             KampanieDisplayDataModel KDDM = new KampanieDisplayDataModel();
+            KDDM.idkampania = idkampania;
+            KDDM.username = username;
+            KDDM.telefon = telefon;
+            KDDM.krotkiopis = k_opis;
+            KDDM.odziez = odziez;
+            KDDM.leki = leki;
+            KDDM.zywnosc = zywnosc;
             KDDM.obrazek_path = obrazek;
             KDDM.tytul = tytul;
             KDDM.dlugiopis = opis;

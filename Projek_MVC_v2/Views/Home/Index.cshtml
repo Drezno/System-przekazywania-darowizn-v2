@@ -11,7 +11,7 @@
     DatabaseConnection db = new DatabaseConnection();
     MySqlConnection cnn = new MySqlConnection(db.GetConString());
     var command = cnn.CreateCommand();
-    command.CommandText = "select idkampanie,username,tytul,krotki_opis,opis,picture from kampanie";
+    command.CommandText = "select * from kampanie";
     cnn.Open();
 
     MySqlDataReader rdr = command.ExecuteReader();
@@ -20,6 +20,8 @@
     {
         var KapaniaModel = new KampanieDisplayDataModel();
         KapaniaModel.idkampania = (int)rdr["idkampanie"];
+
+        
         KapaniaModel.username = (string)rdr["username"];
 
         KapaniaModel.tytul = (string)rdr["tytul"];
@@ -27,17 +29,19 @@
         KapaniaModel.krotkiopis = (string)rdr["krotki_opis"];
         KapaniaModel.dlugiopis = (string)rdr["opis"];
 
+
+        KapaniaModel.odziez = (sbyte)rdr["odziez"];
+        KapaniaModel.leki = (sbyte)rdr["leki"];
+        KapaniaModel.zywnosc = (sbyte)rdr["zywnosc"];
+
+        KapaniaModel.telefon = (string)rdr["telefon"];
         KapaniaModel.obrazek_path = (string)rdr["picture"];
 
         model.Add(KapaniaModel);
 
     }
 
-    //command.ExecuteNonQuery();
     cnn.Close();
-
-
-
 
 }
 
@@ -49,28 +53,44 @@
             <div class="row">
                 @foreach (var kampania in model)
                 {
-                    <div class="col-md-4">
-                        <img alt="" class="resize-image center-block" id="image1" width="100%" height="auto" border-radius="25px" src="@kampania.obrazek_path" />
-                        <p class="text-center"><strong>@kampania.tytul</strong></p>
-                        <p class="text-center">@kampania.krotkiopis</p>
-                        @{ if (model.Any())
-                            {
-                                                <form id="profile-form" method="post" action="/Home/SupportCampaign">
-                                                    <input class="form-control" value="@kampania.obrazek_path" type="hidden" name="obrazek" />
-                                                    <input class="form-control" value="@kampania.tytul" type="hidden" name="tytul" />
-                                                    <input class="form-control" value="@kampania.dlugiopis" type="hidden" name="opis" />
-                                                    @if (User.Identity.IsAuthenticated && user.user==1)
-                                                    {
-                                                        <button id="1" class="btn btn-outline-secondary" type="submit">Wspomóż</button>
-                                                    }
-                                                    else
-                                                    {
-                                                        <button id="1" class="btn btn-outline-secondary" type="button" onclick="location.href='\\Identity\\Account\\Login';">Zaloguj się na konto darczyńcy aby wspomóc</button>
-                                                    }
-                                                </form>
-                            }
+                <div class="col-md-4">
+                    <img alt="" class="resize-image center-block" id="image1" width="100%" height="auto" border-radius="25px" src="@kampania.obrazek_path" />
+                    <p class="text-center"><strong>@kampania.tytul</strong></p>
+                    <p class="text-center">@kampania.krotkiopis</p>
+                    
+                    @{ if (model.Any())
+                        {
+                            <form id="profile-form" method="post" action="/Home/SupportCampaign">
+
+                                <input class="form-control" value="@kampania.idkampania" type="hidden" name="idkampania" />
+
+                                
+                                <input class="form-control" value="@kampania.username" type="hidden" name="username" />
+                                <input class="form-control" value="@kampania.telefon" type="hidden" name="telefon" />
+
+
+                                <input class="form-control" value="@kampania.odziez" type="hidden" name="odziez" />
+                                <input class="form-control" value="@kampania.leki" type="hidden" name="leki" />
+                                <input class="form-control" value="@kampania.zywnosc" type="hidden" name="zywnosc" />
+
+                                <input class="form-control" value="@kampania.obrazek_path" type="hidden" name="obrazek" />
+                                <input class="form-control" value="@kampania.tytul" type="hidden" name="tytul" />
+                                <input class="form-control" value="@kampania.dlugiopis" type="hidden" name="opis" />
+                                <input class="form-control" value="@kampania.krotkiopis" type="hidden" name="k_opis" />
+
+
+                                @if (User.Identity.IsAuthenticated && user.user == 1)
+                                {
+                                    <button id="1" class="btn btn-outline-secondary" type="submit">Wspomóż</button>
+                                }
+                                else
+                                {
+                                    <button id="2" class="btn btn-outline-secondary" type="button" onclick="location.href='\\Identity\\Account\\Login';">Zaloguj się na konto darczyńcy aby wspomóc</button>
+                                }
+                            </form>
                         }
-                    </div>
+                    }
+                </div>
                 }
             </div>
         </div>
