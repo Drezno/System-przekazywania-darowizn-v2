@@ -82,7 +82,7 @@
 
                 <div class="form-group">
                     <label asp-for="Date">Wybierz datę odbioru podarków*:</label>
-                    <input asp-for="Date" type="date" id="pickup_date">
+                    <input asp-for="Date" type="date" id="pickup_date" value="@DateTime.Now">
                     <span asp-validation-for="Date" class="text-danger"></span>
                 </div>
 
