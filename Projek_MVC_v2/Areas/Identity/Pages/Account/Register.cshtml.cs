@@ -111,15 +111,6 @@ namespace Projek_MVC_v2.Areas.Identity.Pages.Account
                     var confirmationLink = Url.Action("ConfirmEmail", "Register", 
                         new { userId = user.Id, token = token}, Request.Scheme);
 
-                    /*if (_signInManager.IsSignedIn(User) && User.IsInRole("Admin"))//tutaj zrobic logowanie admina
-                    {
-                        return RedirectToAction("");
-                    }*/
-
-                   
-
-                  
-
                     _logger.LogInformation("Użytkownik utworzył nowe konto z hasłem.");
 
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
@@ -150,7 +141,6 @@ namespace Projek_MVC_v2.Areas.Identity.Pages.Account
                 }
             }
 
-            // If we got this far, something failed, redisplay form
             return Page();
         }
     }
