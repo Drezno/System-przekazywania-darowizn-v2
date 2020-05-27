@@ -81,8 +81,8 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="birthday">Wybierz datę odbioru podarków*:</label>
-                    <input type="date" id="pickup_date">
+                    <label asp-for="Date">Wybierz datę odbioru podarków*:</label>
+                    <input asp-for="Date" type="date" id="pickup_date">
                     <span asp-validation-for="Date" class="text-danger"></span>
                 </div>
 

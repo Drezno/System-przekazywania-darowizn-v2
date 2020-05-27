@@ -66,7 +66,7 @@ namespace Projek_MVC_v2.Controllers
       
 
         //[HttpGet]
-        public ActionResult DonorForm(string username, string tytul)
+        public ActionResult DonorForm(string username, string tytul, DateTime data)
         {
             var user_EmailDarczyncy = _userManager.GetUserName(HttpContext.User);
 
@@ -96,6 +96,7 @@ namespace Projek_MVC_v2.Controllers
             DFM.First_Name = user_FirstName;
             DFM.Last_Name = user_LasttName;
             DFM.PhoneNumber = user_phibe;
+            DFM.Date = data;
             return View(DFM);
         }
 
@@ -122,7 +123,7 @@ namespace Projek_MVC_v2.Controllers
             smtp.EnableSsl = true;
             smtp.Credentials = new System.Net.NetworkCredential("dobrowraca1997@gmail.com", "poziom1C");
             smtp.Send(mm);*/
-            
+          
 
             MailMessage mail = new MailMessage("dobrowraca1997@gmail.com", model.EmailOdbiorcy);
             mail.Subject = "Przekazano darowiznę na kampanię "+"'"+model.Campaign+"'";
@@ -134,7 +135,7 @@ namespace Projek_MVC_v2.Controllers
                 "Miasto: "+model.City+"\n" +
                 "Ulica: "+model.Street+" "+model.Street_Number+"\n" +
                 "Kod pocztowy: "+model.PostalCode+"\n" +
-                "Preferowana data odbioru: "+model.Date+"\n" +
+                "Preferowana data odbioru: "+model.Date.ToString("dd/MM/yyyy") + "\n" +
                 "Przekazuje dla organizacji: "+model.firm_name;
             mail.IsBodyHtml = false;
             SmtpClient smtp = new SmtpClient();
