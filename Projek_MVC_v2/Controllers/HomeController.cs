@@ -169,6 +169,7 @@ namespace Projek_MVC_v2.Controllers
             KDDM.obrazek_path = obrazek;
             KDDM.tytul = tytul;
             KDDM.dlugiopis = opis;
+            
             return View(KDDM);
         }
     }
