@@ -123,23 +123,7 @@ namespace Projek_MVC_v2.Areas.Identity.Pages.Account.Manage
             returnUrl = returnUrl ?? Url.Content("~/");
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
-            {/*
-                var kampania = new Kampaniee
-                {
-                    username = Username,
-                    telefon = Phone,
-                    tytul = Input.title,
-                    krotkiopis = Input.k_opis,
-                    dlugiopis = Input.d_opis,
-                    odziez = Input.odziez,
-                    leki = Input.leki,
-                    zywnosc = Input.zywnosc
-
-                };
-                */
-                
-
-
+            {
                 var file = Input.ForFile;
                 string newFullPath = null;
                 string tempFileName = null;
@@ -148,7 +132,7 @@ namespace Projek_MVC_v2.Areas.Identity.Pages.Account.Manage
                     
                     int count = 1;
 
-                    // var formFile = HttpContext.Request.Form.Files[0];
+                  
                     
                     var fullPath = Path.Combine(@"C:\\Users\\damia\\source\\repos\\System-przekazywania-darowizn-v2\\Projek_MVC_v2\\wwwroot\\images\\uploads\\", file.FileName);
                     
@@ -156,7 +140,7 @@ namespace Projek_MVC_v2.Areas.Identity.Pages.Account.Manage
                     tempFileName = fileNameOnly;
                     string extension = Path.GetExtension(fullPath);
                     
-                    //string path = Path.GetDirectoryName(fullPath);
+                    
 
                     string PATH = @"C:\\Users\\damia\\source\\repos\\System-przekazywania-darowizn-v2\\Projek_MVC_v2\\wwwroot\\images\\uploads\\";
 
@@ -178,7 +162,6 @@ namespace Projek_MVC_v2.Areas.Identity.Pages.Account.Manage
                     }
 
                     newFullPath = @"\/images\/uploads\/" + tempFileName + extension;
-                    //StatusMessage = formFile;
                 }
                 
                 int o = Input.odziez ? 1 : 0;
