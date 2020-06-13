@@ -135,7 +135,8 @@ namespace Projek_MVC_v2.Controllers
                 "Miasto: "+model.City+"\n" +
                 "Ulica: "+model.Street+" "+model.Street_Number+"\n" +
                 "Kod pocztowy: "+model.PostalCode+"\n" +
-                "Preferowana data odbioru: "+model.Date.ToString("dd/MM/yyyy") + "\n" +
+                "Chce przekazać: " + model.GiveAway + "\n" +
+                "Preferowana data odbioru: " +model.Date.ToString("dd/MM/yyyy") + "\n" +
                 "Przekazuje dla organizacji: "+model.firm_name;
             mail.IsBodyHtml = false;
             SmtpClient smtp = new SmtpClient();

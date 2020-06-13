@@ -81,17 +81,23 @@
                 </div>
 
                 <div class="form-group">
+                    <label asp-for="GiveAway">Co chcesz przekazać?*</label>
+                    <input asp-for="GiveAway" class="form-control" />
+                    <span asp-validation-for="GiveAway" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
                     <label asp-for="Date">Wybierz datę odbioru podarków*:</label>
                     <input asp-for="Date" type="date" id="pickup_date" value="@DateTime.Now">
                     <span asp-validation-for="Date" class="text-danger"></span>
                 </div>
 
-               
+
 
                 <div class="form-group">
-                    
+
                     <input asp-for="firm_name" class="form-control" type="hidden" readonly />
-                   
+
                 </div>
 
                 <button id="1" class="btn btn-outline-secondary" type="submit">Prześlij</button>
