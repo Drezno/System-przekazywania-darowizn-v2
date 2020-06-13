@@ -134,7 +134,7 @@ namespace Projek_MVC_v2.Areas.Identity.Pages.Account.Manage
 
                   
                     
-                    var fullPath = Path.Combine(@"C:\\Users\\damia\\source\\repos\\System-przekazywania-darowizn-v2\\Projek_MVC_v2\\wwwroot\\images\\uploads\\", file.FileName);
+                    var fullPath = Path.Combine(@"C:\Users\Patryk\Desktop\NET.PROJEKT\new one\System-przekazywania-darowizn-v2\Projek_MVC_v2\wwwroot\images\uploads\", file.FileName);
                     
                     string fileNameOnly = Path.GetFileNameWithoutExtension(fullPath);
                     tempFileName = fileNameOnly;
@@ -142,7 +142,7 @@ namespace Projek_MVC_v2.Areas.Identity.Pages.Account.Manage
                     
                     
 
-                    string PATH = @"C:\\Users\\damia\\source\\repos\\System-przekazywania-darowizn-v2\\Projek_MVC_v2\\wwwroot\\images\\uploads\\";
+                    string PATH = @"C:\Users\Patryk\Desktop\NET.PROJEKT\new one\System-przekazywania-darowizn-v2\Projek_MVC_v2\wwwroot\images\uploads\";
 
 
                     newFullPath = fullPath;
